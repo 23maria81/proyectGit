@@ -29,8 +29,8 @@ try{
 /*tabla temas*/
        $sql = <<<sql
 create table Temas(
-   id int primary key auto_increment,
-   nombre varchar(20),
+   Id int primary key auto_increment,
+   titulo varchar(20) not null,
    titulo_url varchar(20)
 );
 sql;
@@ -64,13 +64,11 @@ sql;
 create table respuesta(
    id int primary key auto_increment,
    respuesta varchar(20),
-   verdadera true(1),
+   verdadera tinyint(1),
    pregunta varchar(20)
-
-
 );
 sql;
-       $res = $conexion->exec($sql);
+      $res = $conexion->exec($sql);
        if($res===FALSE){
            echo "<p>No se ha podido crear la tabla respuesta</p>";
            echo "<p>".$conexion->errorInfo()[2]."</p>";
@@ -79,8 +77,8 @@ sql;
        }
 /* insertar informacion en tabla Temas */
        $sql = <<<sql
-insert into Temas(id,titulo,titulo_url) values
-(1,HTML,html),(2,JavaScript,js),(3,CSS,css),(4,PHP,php);
+insert into Temas(Id,titulo,titulo_url) values
+(1,'HTML',1),(2,'JavaScript',2),(3,'CSS',3),(4,'PHP',4);
 sql;
        $res = $conexion->exec($sql);
        if($res===FALSE){
@@ -91,8 +89,8 @@ sql;
        }
 /* Insert informacion tabla preguntas */
        $sql = <<<sql
-insert into preguntas(id,pregunta,tema) values
-(Existe el HTML,1),(Existe el javaScript,2),(Existe el CSS,3),(Existe el PHP,4);
+insert into preguntas(pregunta,tema) values
+('Existe el HTML',1),('Existe el javaScript',2),('Existe el CSS',3),('Existe el PHP',4);
 sql;
        $res = $conexion->exec($sql);
        if($res===FALSE){
@@ -105,10 +103,10 @@ sql;
        /* Insert informacion tabla respuesta */
        $sql = <<<sql
 insert into respuesta(id,respuesta,verdadera,pregunta) values
-(1,SI,true,1),
-(2,SI,true,2),
-(3,SI,treu,3),
-(4,SI,true,4);
+(1,'SI',1,1),
+(2,'SI',1,2),
+(3,'SI',1,3),
+(4,'SI',1,4);
 sql;
        $res = $conexion->exec($sql);
        if($res===FALSE){
