@@ -1,18 +1,4 @@
 <?php
-  require 'vendor/autoload.php';
-
-  $app = new \Slim\App();
-
-  $app->get("/", function ($request, $response, $args) {
-    $response->write("<h1> Markdown:<br> Herramienta de conversion de texto plano a HTML
-                      Es un lenguaje de marcado que facilita la escritura </h1>");
-
-});
-
-$app->run();
-?>
-
- <?php
        try{
            $conexion = new PDO("mysql:host=localhost", "root");
        }catch(PDOException $e){
@@ -20,7 +6,11 @@ $app->run();
            die();
        }
 
-       $sql = "create database juegoPreguntas;";
+       $sql = "drop database if exists cursos;";
+       $res = $conexion->exec($sql);
+
+
+       $sql = "create database juego Preguntas;";
        $res = $conexion->exec($sql);
        if($res===FALSE){
            echo "<p>No se ha podido crear la base de datos.</p>";
@@ -56,7 +46,7 @@ sql;
 /* tabla preguntas */
        $sql = <<<sql
 create table preguntas(
-   id int primary key auto_increment,
+   id int  auto_increment,
   pregunta varchar(30),
   tema (50)
 
@@ -70,12 +60,13 @@ sql;
            echo "<p>Tabla preguntas creada!!!</p>";
        }
 
-       /* tabla respuesta */
+/* tabla respuesta */
        $sql = <<<sql
 create table respuesta(
-   id int primary key auto_increment,
+   id int  auto_increment,
    respuesta varchar(50),
    verdadera (false),
+   pregunta varchar(50)
 
    primary key(id, Temas),
    foreign key(id) references preguntas(id),
@@ -89,11 +80,22 @@ sql;
        }else{
            echo "<p>Tabla respuesta creada!!!</p>";
        }
-
-       /* insertar informacion en tabla Temas */
+/* insertar informacion en tabla Temas */
        $sql = <<<sql
-insert into Temas(titulo) values
-("La casa"),("El perro"),("El carro"),("La montaña");
+insert into Temas(id,titulo,titulo_url) values
+(1,HTML,html),(2,JavaScript,JS),(3,CSS,css),(4,PHP,php);
+sql;
+       $res = $conexion->exec($sql);
+       if($res===FALSE){
+           echo "<p>Error al añadir datos.</p>";
+           echo "<p>".$conexion->errorInfo()[2]."</p>";
+       }else{
+           echo "<p>Se han añadido $res filas</p>";
+       }
+/* Insert informacion tabla preguntas */
+       $sql = <<<sql
+insert into preguntas(id,pregunta,tema) values
+(1,Existe el HTML,HTML),(2,Existe el CSS,CSS),(3,Existe el JavaScript,JS),(4,Existe el PHP,PHP);
 sql;
        $res = $conexion->exec($sql);
        if($res===FALSE){
@@ -103,11 +105,13 @@ sql;
            echo "<p>Se han añadido $res filas</p>";
        }
 
-
-       /* Insert asignatura */
+       /* Insert informacion tabla respuesta */
        $sql = <<<sql
-insert into asignatura(nombre) values
-("HTML"),("CSS"),("JavaScript"),("PHP");
+insert into respuesta(id,respuesta,verdadera,pregunta) values
+(1,SI,true,1),
+(2,SI,true,2),
+(3,SI,treu,3),
+(4,SI,true,4);
 sql;
        $res = $conexion->exec($sql);
        if($res===FALSE){
@@ -115,21 +119,5 @@ sql;
            echo "<p>".$conexion->errorInfo()[2]."</p>";
        }else{
            echo "<p>Se han añadido $res filas</p>";
-       }
-
-       /* Insert alumno_asignatura */
-       $sql = <<<sql
-insert into alumno_asignatura(alumno,asignatura,nota) values
-(1,1,7),
-(1,2,10),
-(3,3,7),
-(4,3,5);
-sql;
-       $res = $conexion->exec($sql);
-       if($res===FALSE){
-           echo "<p>Error al añadir datos.</p>";
-           echo "<p>".$conexion->errorInfo()[2]."</p>";
-       }else{
-           echo "<p>Se han añadido $res filas</p>";
-       }
-       ?>
+    }
+?>
