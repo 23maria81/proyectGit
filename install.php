@@ -35,7 +35,7 @@
                 echo "<li>Conexión con el SGBD: <span class='err'>ERROR</span></li>";
             }
             /* Crear la BD */
-            $sql = "create database entrenador; use entrenador;";
+            $sql = "create database install; use install;";
             $res = $conexion->exec($sql);
             $err=$conexion->errorInfo()[2];
             if($res===FALSE) echo "<li>Creación de la BD: <span class='err' title=\"$err\">ERROR</span></li>";
