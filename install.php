@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Instalación de CMSimple</title>
+        
         <style>
             .err, .ok{
                 border: 1px solid;
