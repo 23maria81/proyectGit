@@ -1,12 +1,16 @@
 <?php
-require "vendor/autoload.php";
 
-$app = new Slim\App();
+  require "vendor/autoload.php";
 
-$app->get('/tema', function($request, $response, $args){
-    $response->write("<h1>Respuesta Correcta</h1>");
-    return $response;
-});
+  use Slim\Views\PhpRenderer;
 
-$app->run();
-?>
+  $app = new \Slim\App();
+  $con = $app->getContainer();
+
+
+  $con['urlbase'] = "/MariaB/proyectGit";
+
+
+  $app->run();
+
+ ?>

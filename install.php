@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Instalación de CMSimple</title>
-        
+
         <style>
             .err, .ok{
                 border: 1px solid;
@@ -25,7 +25,7 @@
         </style>
     </head>
     <body>
-        <h1>Instalación del programa <strong>Entrenador</strong></h1>
+        <h1>Instalación Base de datos <strong>Install</strong></h1>
         <ol>
         <?php
             /* Establecer la conexión con el SGBD */
@@ -35,6 +35,12 @@
             }catch(PDOException $e){
                 echo "<li>Conexión con el SGBD: <span class='err'>ERROR</span></li>";
             }
+
+
+            // borramos la base de datos para no tener que borrarla en myAdmin
+            $sql="drop database if exists install;";
+            $res=$conexion->exec($sql);
+
             /* Crear la BD */
             $sql = "create database install; use install;";
             $res = $conexion->exec($sql);
@@ -86,7 +92,7 @@
 
         <?php if($res!==FALSE){ ?>
             <p>Instalación finalizada con éxito!!</p>
-            <a href='index.php'>Iniciar el programa</a>
+            <a href='crearPreguntas.php'>Iniciar el programa</a>
         <?php } ?>
     </body>
 </html>

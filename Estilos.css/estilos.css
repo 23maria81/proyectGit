@@ -1,0 +1,43 @@
+body
+           {
+               margin:0;
+               background-size:cover;
+               background-attachment: fixed;
+           }
+
+  header
+           {
+               background-color: blue;
+               background-size: cover;
+               color: white;
+               height: 120px;
+               margin: 0;
+               width: 100%;
+               position: fixed;
+           }
+
+h1 {
+  text-align: center;
+ }
+
+td {
+  padding: 0.2em 2em ;
+ }
+
+ .err, .ok{
+     border: 1px solid;
+     border-radius: 10px;
+     padding: 5px;
+     margin: 10px;
+     display: inline-block;
+ }
+ .err{
+     border-color: rgb(150,0,0);
+     background-color: rgb(255,200,200);
+     color: rgb(150,0,0);
+ }
+ .ok{
+     border-color: rgb(0,150,0);
+     background-color: rgb(200,255,200);
+     color: rgb(0,150,0);
+ }
